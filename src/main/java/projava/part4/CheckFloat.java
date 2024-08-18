@@ -1,5 +1,8 @@
 package projava.part4;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class CheckFloat {
 
     enum FloatState {
@@ -71,6 +74,12 @@ public class CheckFloat {
         };
     }
 
+    static Pattern pat = Pattern.compile("(0|[1-9][0-9]*)(\\.[0-9]+)?");
+    static boolean checkRegex(String data) {
+        Matcher mat = pat.matcher(data);
+        return mat.matches();
+    }
+
     public static void main(String[] args) {
         System.out.println(check(""));
         System.out.println(check("012"));
@@ -89,11 +98,35 @@ public class CheckFloat {
         System.out.println(check("12.0"));
         System.out.println(check("--123"));
         System.out.println(check("-12-3"));
-
         System.out.println(check("-12.304"));
         System.out.println(check("--12.3004"));
         System.out.println(check("1-2.3004"));
         System.out.println(check("-.3004"));
         System.out.println(check("-00.3004"));
+
+        System.out.println("============");
+
+        System.out.println(checkRegex(""));
+        System.out.println(checkRegex("012"));
+        System.out.println(checkRegex(".12"));
+        System.out.println(checkRegex("12."));
+        System.out.println(checkRegex("1.2.3"));
+        System.out.println(checkRegex("1..3"));
+        System.out.println(checkRegex("0"));
+        System.out.println(checkRegex("12"));
+        System.out.println(checkRegex("12.3"));
+        System.out.println(checkRegex("0.3"));
+        System.out.println(checkRegex("-123"));
+        System.out.println(checkRegex("-123.1"));
+        System.out.println(checkRegex("12.30"));
+        System.out.println(checkRegex("12.03"));
+        System.out.println(checkRegex("12.0"));
+        System.out.println(checkRegex("--123"));
+        System.out.println(checkRegex("-12-3"));
+        System.out.println(checkRegex("-12.304"));
+        System.out.println(checkRegex("--12.3004"));
+        System.out.println(checkRegex("1-2.3004"));
+        System.out.println(checkRegex("-.3004"));
+        System.out.println(checkRegex("-00.3004"));
     }
 }
